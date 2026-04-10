@@ -1,0 +1,1 @@
+env DISABLE_LAYER_AMD_SWITCHABLE_GRAPHICS_1=1 VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/radeon_icd.x86_64.json:/usr/share/vulkan/icd.d/radeon_icd.i686.json __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json DRI_PRIME=pci-0000_04_00_0 __GLX_VENDOR_LIBRARY_NAME=amd LIBVA_DRIVER_NAME=radeonsi $@
