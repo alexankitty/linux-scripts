@@ -19,6 +19,7 @@
 ## https://github.com/OctopusET/sway-contrib/blob/master/grimshot/grimshot
 
 NAME="$(basename "$0")"
+GRIMBIN=$HOME/.cargo/bin/grim-rs
 
 # Check whether another instance is running
 GRIMBLASTLOCK="${XDG_RUNTIME_DIR:-${XDG_CACHE_DIR:-$HOME/.cache}}/$NAME.lock"
@@ -150,10 +151,10 @@ grimblast::check() {
   return $status
 }
 
-# The actual wayshot command used is printed to stderr
+# The actual grim command used is printed to stderr
 screenshot() {
   local file="$1" geom="$2" output="$3"
-  xargs --verbose wayshot <<<"${CURSOR:+-c} ${SCALE:+-s \"$SCALE\"} --encoding \"$FILETYPE\" ${output:+-o \"$output\"} ${geom:+-g \"$geom\"} \"$file\""
+  xargs --verbose $GRIMBIN <<<"${CURSOR:+-c} ${SCALE:+-s \"$SCALE\"} -t \"$FILETYPE\" ${output:+-o \"$output\"} ${geom:+-g \"$geom\"} \"$file\""
 }
 
 # Special actions: usage and check. These are special because they allow to exit early
@@ -183,7 +184,7 @@ EOF
 check() {
   local status
   echo "Checking if required tools are installed. If something is missing, install it to your system and make it available in PATH..."
-  for t in wayshot slurp hyprctl hyprpicker wl-copy jq notify-send; do
+  for t in $GRIMBIN slurp hyprctl hyprpicker wl-copy jq notify-send; do
     grimblast::check "$t" || status=$?
   done
   exit $status
